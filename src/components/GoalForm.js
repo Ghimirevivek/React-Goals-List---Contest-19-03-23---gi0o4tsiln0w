@@ -1,29 +1,46 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
-const GoalForm = () => {
-    const [formData, setFormData] = useState({
-      goal: "",
-      by: ""
-    });
-  
-    return (
-      <>
-        <h1>My Goals</h1>
-        <form>
-          <input 
-            type="text" 
-            name='goal' 
-            placeholder='Goal...' 
-          />
-          <input 
-            type="text"
-            name="by"
-            placeholder='By...'
-          />
-          <button>Add</button>
-        </form>
-      </>
-    )
+const GoalForm = ({ onAddGoal }) => {
+  const [formData, setFormData] = useState({
+    goal: '',
+    by: '',
+  })
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    const newGoal = { goal: formData.goal, by: formData.by }
+    onAddGoal(newGoal)
+    setFormData({ goal: '', by: '' })
+  }
+  const changeHandler = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+    setFormData((prev) => {
+      return { ...prev, [name]: value }
+    })
+  }
+  return (
+    <>
+      <h1>My Goals</h1>
+      <form on onSubmit={submitHandler}>
+        <input
+          type="text"
+          name="goal"
+          placeholder="Goal..."
+          value={formData.goal}
+          onChange={changeHandler}
+        />
+        <input
+          type="text"
+          name="by"
+          placeholder="By..."
+          value={formData.by}
+          onChange={changeHandler}
+        />
+        <button>Add</button>
+      </form>
+    </>
+  )
 }
 
-export default GoalForm;
+export default GoalForm

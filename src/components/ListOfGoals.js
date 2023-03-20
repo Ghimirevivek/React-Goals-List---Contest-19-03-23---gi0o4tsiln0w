@@ -1,13 +1,19 @@
-import React from "react";
+import React from 'react'
 
-const ListOfGoals = () => {
-    return (
-      <ul>
-        <li>
-            <p>My goal is to goalName, by goalDeadline.</p>
+const ListOfGoals = (props) => {
+  return (
+    <ul>
+      {props.goals.map((goal, index) => {
+        return (
+          <li key={index}>
+            <p>
+              My goal is to {goal.goal}, by {goal.by}.
+            </p>
           </li>
-      </ul>
-    );
+        )
+      })}
+    </ul>
+  )
 }
 
-export default ListOfGoals;
+export default ListOfGoals
